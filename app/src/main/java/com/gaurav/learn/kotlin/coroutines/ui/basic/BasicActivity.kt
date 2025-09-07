@@ -17,11 +17,17 @@ import kotlinx.coroutines.withContext
 
 class BasicActivity : AppCompatActivity() {
 
-    private val myActivityScope = CoroutineScope(Dispatchers.Main.immediate)
-
     companion object {
         private const val TAG = "BasicActivity"
     }
+
+    private val myActivityScope = CoroutineScope(Dispatchers.Main.immediate)
+
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        setContentView(R.layout.activity_basic)
+    }
+
     override fun onDestroy() {
         super.onDestroy()
         myActivityScope.cancel()
@@ -32,12 +38,6 @@ class BasicActivity : AppCompatActivity() {
     fun testCoroutine(view: View) {
         testCoroutine()
     }
-
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_basic)
-    }
-
 
     fun usingMyActivityScope(view: View) {
         usingMyActivityScope()
