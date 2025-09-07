@@ -1,0 +1,432 @@
+<br>
+<h1> ****************************************************************************************************</h1>
+
+<h3>1. When you click on "testCoroutine" </h3>
+<p>
+    * ** NOTE:-> <br>
+    1. The default dispatcher is Dispatchers.Main.immediate for lifecycleScope & viewModelScope. <br>
+    2. withContext is used to change the thread or Dispatchers and it does not start/create any new coroutine. <br>
+    3. Computation/Computational Thread => Dispatchers.Default Background Thread <br>
+    4. Whatever we write inside launch, it will execute synchronously i.e. sequentially. <br>
+    5. suspend function will hold the control until it has been executed completely. <br>
+    And as withContext is also a suspend function, it will hold the control until its completion <br>
+    and that is why <b> doLongRunningTask End on thread: </b> will execute only after the completion of withContext block [ even Main Thread is free ]. <br>
+    6. by using launch{} and async{} only we can start the coroutine and can do the tasks in parallel <br>
+
+    <br><br>
+
+    Output: <br><br>
+
+    1. Function Start on thread: main <br>
+
+    2. Before Task on thread: main <br>
+
+    3. doLongRunningTask Start on thread: main <br>
+
+    4. Function End on thread: main <br>
+
+    5. Before Delay on thread: DefaultDispatcher-worker-2 <br>
+
+    6. After Delay on thread: DefaultDispatcher-worker-2 <br>
+
+    7. doLongRunningTask End on thread: main <br>
+
+    8. After Task on thread: main <br><br>
+
+    * ** NOTE:-> 4 amd 5 can interchange based on thread scheduling. <br>
+
+
+</p>
+
+
+<h3>2. When you click on "usingMyActivityScope" </h3>
+<p>
+
+    NOTE: we have created myActivityScope with Dispatchers.Main.immediate dispatcher <br><br>
+
+    Output: <br><br>
+
+    Function Start on thread: main <br>
+
+    Before Task on thread: main <br>
+
+    doLongRunningTask Start on thread: main <br>
+
+    ------------------------------------------------------------------------------ <br><br>
+
+    Function End on thread: main <br>
+
+
+    Before Delay on thread: DefaultDispatcher-worker-1 <br><br>
+
+    * ** NOTE:-> above order could be change <br><br>
+
+
+    ------------------------------------------------------------------------------ <br>
+
+    After Delay on thread: DefaultDispatcher-worker-1 <br>
+
+    doLongRunningTask End on thread: main <br>
+
+    After Task on thread: main <br><br>
+
+    * ** NOTE:-><br>
+    1. if I immediately go back from this Activity [Activity will Destroy immediately] then myActivityScope will act as a Global Scope <br>
+    and it will execute even after destroying the Activity.<br>
+    Hence it will execute <b> After Task on thread: </b> even after destroying the Activity.<br>
+    So in this case myActivityScope &  GlobalScope both are same with respect to scope.<br>
+    2. <b>But if we add myActivityScope.cancel() inside Activity's onDestroy() method</b> then it will act as lifecycleScope<br>
+    and will get destroy with the Activity only. <br>
+    Hence it will NOT execute <b> After Task on thread: </b> after destroying the Activity as myActivityScope has also been destroyed with the Activity. <br>
+    So in this case myActivityScope &  lifecycleScope both are same with respect to scope.<br>
+    <b>But in terms of exception handling both myActivityScope & lifecycleScope will be different. </b> <br>
+    3. lifecycleScope is by default lifecycle aware and we do not need to do anything to make it lifecycle aware.<br>
+    but in case of myActivityScope, we have to cancel the scope manually inside onDestroy() method of Activity to make it lifecycle aware. <br>
+    4. <b>In terms of exception handling both myActivityScope & lifecycleScope will be different. </b> <br>
+
+</p>
+
+
+
+<h3>3. When you click on "testCoroutineWithMain" </h3>
+
+<p>
+
+    Output: <br><br>
+
+    Function Start on thread: main <br>
+
+    Function End on thread: main <br>
+
+    Before  Task on thread: main <br>
+
+    doLongRunningTask Start on thread: main <br>
+
+    Before Delay on thread: DefaultDispatcher-worker-2 <br>
+
+    After Delay on thread: DefaultDispatcher-worker-2 <br>
+
+    doLongRunningTask End on thread: main <br>
+
+    After  Task on thread: main <br>
+
+</p>
+
+
+<h3>4. When you click on "usingGlobalScope" </h3>
+<p>
+
+    * ** NOTE:-> The default dispatcher is Dispatchers.Default for GlobalScope <br><br>
+
+    Output: <br><br>
+
+    Function Start on thread: main <br>
+
+    ------------------------------------------------------------------------------ <br><br>
+
+    Function End on thread: main <br>
+
+    Before Task on thread: DefaultDispatcher-worker-1 <br><br>
+
+    * ** NOTE:-> above order could be change <br><br>
+
+    ------------------------------------------------------------------------------ <br>
+
+    doLongRunningTask Start on thread: DefaultDispatcher-worker-1 <br>
+
+    Before Delay on thread: DefaultDispatcher-worker-1 <br>
+
+    After Delay on thread: DefaultDispatcher-worker-1 <br>
+
+    doLongRunningTask End on thread: DefaultDispatcher-worker-1 <br>
+
+    After Task on thread: DefaultDispatcher-worker-1 <br><br>
+
+    * ** NOTE:-><br>
+    1. if I immediately go back from this Activity [Activity will Destroy immediately] then also <b> After Task on thread: </b> will get execute and will print in the logs. <br>
+    So it will execute even after destroying the Activity and will print <b> After Task on thread: </b> because the scope is <b> Global </b> here. <br>
+    2. But in case of lifeCycleScope <b> After Task on thread: </b> will not get printed because lifecycleScope will get destroy with the Activity. <br>
+
+</p>
+
+
+<h3>5. When you click on "globalScopeInsideLifecycleScope" </h3>
+
+<p>
+
+    * ** NOTE:-> if we use even lifecycleScope.launch instead of GlobalScope.launch (inside) then also output will be same <br><br>
+
+    Output: <br><br>
+
+    Function Start on thread: main <br>
+
+    Before Task on thread: main <br>
+
+    After Task on thread: main <br>
+
+    ------------------------------------------------------------------------------ <br><br>
+
+    Function End on thread: main <br>
+
+    Before Delay on thread: DefaultDispatcher-worker-1 <br><br>
+
+    * ** NOTE:-> above order could be change <br><br>
+
+    ------------------------------------------------------------------------------ <br>
+
+    After Delay on thread: DefaultDispatcher-worker-1 <br><br>
+
+    * ** NOTE:-><br>
+    1. If I immediately go back from this Activity [Activity will Destroy immediately] then lifecycleScope will get destroyed as Activity has been destroyed,<br>
+    but GlobalScope will NOT get destroyed. <br>
+    and hence <b>After Delay on thread:</b> will get printed [ even after destroying the Activity ] because of GlobalScope. <br>
+    2. So whatever we have inside lifecycleScope, it will get cancelled, <br>
+    but whatever we have inside GlobalScope, it will NOT get cancelled. <br>
+    3. Here, inside one Coroutine we are launching another Coroutine. So it is like calling another thread from one thread. <br>
+    So these 2 coroutines will be completely independent and will execute in parallel. <br>
+
+
+
+
+
+</p>
+
+<h3>6. When you click on "launchInsideLifecycleScope" </h3>
+
+<p>
+
+    Output: <br><br>
+
+    Function Start on thread: main <br>
+
+    Before Task on thread: main <br>
+
+    After Task on thread: main <br>
+
+    ------------------------------------------------------------------------------ <br><br>
+
+    Function End on thread: main <br>
+
+    Before Delay on thread: DefaultDispatcher-worker-1 <br><br>
+
+    * ** NOTE:-> above order could be change <br><br>
+
+    ------------------------------------------------------------------------------ <br>
+
+    After Delay on thread: DefaultDispatcher-worker-1 <br><br>
+
+    * ** NOTE:-><br>
+    1. Here inner launch will pick the scope from the Parent and Parent is lifecycleScope here. <br>
+    So this inner launch will be same as lifecycleScope.launch{ } <br>
+    2. If I immediately go back from this Activity [Activity will Destroy immediately] then both scopes (outer & inner) will get canceled with Activity.<br>
+    and hence in that case <b> After Delay on thread: </b> will NOT print. <br>
+
+</p>
+
+
+<h3>7. When you click on "testCoroutineEverything" </h3>
+
+<p>
+
+    * ** NOTE:-> here both coroutine will run in parallel. <br><br>
+
+    Output: <br><br>
+
+    Function Start on thread: main <br>
+
+    Function End on thread: main <br>
+
+    Before  Task 1 on thread: main <br>
+
+    doLongRunningTask-1 Start on thread: main <br>
+
+    ------------------------------------------------------------------------------ <br><br>
+
+    Before Delay-1 on thread: DefaultDispatcher-worker-1 <br>
+
+    Before  Task 2 on thread: main <br>
+
+    doLongRunningTask-2 Start on thread: main <br>
+
+    Before Delay-2 on thread: DefaultDispatcher-worker-2 <br><br>
+
+    * ** NOTE:-> above order could be change <br><br>
+
+    ------------------------------------------------------------------------------ <br>
+
+    After Delay-1 on thread: DefaultDispatcher-worker-1 <br>
+
+    doLongRunningTask-1 End on thread: main <br>
+
+    After  Task 1 on thread: main <br>
+
+    After Delay-2 on thread: DefaultDispatcher-worker-1 <br>
+
+    doLongRunningTask-2 End on thread: main <br>
+
+    After  Task 2 on thread: main <br>
+
+</p>
+
+
+
+<h3>8. When you click on "twoLaunches" </h3>
+
+<p>
+
+    Output: <br><br>
+
+    Function Start on thread: main <br>
+
+    ------------------------------------------------------------------------------ <br><br>
+
+    1. Function End on thread: main <br>
+
+    2. Before Delay 1 on thread: DefaultDispatcher-worker-1 <br>
+
+    3. Before Delay 2 on thread: DefaultDispatcher-worker-2 <br><br>
+
+
+    * ** NOTE:-> above order could be change. [ 2,3,1  OR  2,1,3  OR  1,2,3 ... ] <br><br>
+
+    ------------------------------------------------------------------------------ <br>
+
+    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <b style="color:blue;">After 2 sec only</b> <br>
+
+    After Delay 1 on thread: DefaultDispatcher-worker-1 <br>
+
+    After Delay 2 on thread: DefaultDispatcher-worker-2 <br><br>
+
+    * ** NOTE:-><br>
+    1. Here we are launching 2 Coroutines (Threads) which are independent from each other and will execute in parallel. <br>
+    2. Both Coroutines will get executed in 2 sec only because both are different threads and both will run in parallel. <br>
+    3. Here all 3 threads (Main Thread and 2 Coroutines) will run in parallel. <br>
+
+
+
+
+</p>
+
+
+<h3>9. When you click on "twoWithContextInsideLifecycleScope" </h3>
+
+<p>
+
+    Output: <br><br>
+
+    Function Start on thread: main <br>
+
+    Before Task 1 on thread: main <br>
+
+    Function End on thread: main <br>
+
+    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <b style="color:blue;">After 2 sec</b> <br>
+
+    After Task 1 on thread: main <br>
+
+    Before Task 2 on thread: main <br>
+
+    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <b style="color:blue;">After 3 sec</b> <br>
+
+    After Task 2 on thread: main <br>
+
+    result : 20 <br> <br>
+
+
+    * ** NOTE:-> <br>
+    1. There is only ONE coroutine we are launching in this example <br>
+    and whatever we have inside launch { } block everything will get execute sequentially. <br>
+    In this example first doLongRunningTaskOne will get executed and after that only doLongRunningTaskTwo will get executed. <br>
+    Hence total time will be 2 sec + 3 sec = 5 sec <br>
+    So we will get the result (result : 20) after 5 sec. [2 sec + 3 sec = 5 sec] <br>
+    2. The line <b>After Task 2 on thread: main</b> will get printed after 5 sec. <br>
+    3. Here we launch only 1 Coroutine. So 2 Threads [ Main Thread & 1 Coroutine on Default Thread ] will execute in parallel. <br>
+    Coroutine will execute on Default thread because of <b>withContext(Dispatchers.Default)</b> <br>
+    4. Suspend function ( for example doLongRunningTaskOne) will hold the control and will not allow to go on the below line [ i.e. After Task 1 on thread: ] until <br>
+    this suspend function will not complete its execution. <br>
+    So after completing the execution of suspend function ( for example doLongRunningTaskOne) only, the next line <b>After Task 1 on thread:</b> will execute. <br><br>
+
+
+
+
+</p>
+
+
+<h3>10. When you click on "twoAsyncInsideLifecycleScope" </h3>
+
+<p>
+
+    Output: <br><br>
+
+
+    Function Start on thread: main <br>
+
+    Before Task  on thread: main <br>
+
+    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <b style="color:blue;">After 0 sec</b><br>
+
+    Before Result on thread: main <br>
+
+    Function End on thread: main <br>
+
+    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <b style="color:blue;">After 3 sec (longer task)</b> <br>
+
+    result : 20 <br>
+
+    After Task on thread: main <br><br>
+
+
+    * ** NOTE:-><br>
+    1.There are 2 coroutines we are launching (by using async) in this example. <br>
+    So both doLongRunningTaskOne & doLongRunningTaskTwo will execute in parallel on Default Thread. <br>
+    After that Main Thread will get suspended on the below line: <br>
+    val result = deferredOne.await() + deferredTwo.await() <br>
+    And as await() is a suspend function, hence it will hold the control and will not allow to execute the next line until we get the result back from doLongRunningTaskOne & doLongRunningTaskTwo.<br>
+    After 3 sec we will get the result (result : 20) back and hence after 3 sec result : 20 will get execute.<br>
+    2. await() suspend function will hold the control until we get the result back from doLongRunningTaskOne & doLongRunningTaskTwo. <br>
+    3. As Main Thread will get suspended on the below line: <br>
+    val result = deferredOne.await() + deferredTwo.await() <br>
+    So the Main Thread will be free to do some other task and hence immediately Main Thread will execute the line <b>Function End on thread: main</b><br>
+    4. This example will take only 3 sec for complete execution because we are launching 2 Coroutines and both will execute in parallel.<br>
+    5. If I do not write await() then will the task be executed or not? <br>
+    Ans: Both task will get executed. so basically by using async{} we already have been launched the Coroutines. <br>
+    And both the Coroutines are already running in parallel.<br>
+    By using await() we are trying to get the result only. <br>
+    So if I do not write await() [deferredOne.await()] then also the TASK [doLongRunningTaskOne()] will get executed, because <br>
+    we already have been launched the Coroutines by using async{}.<br>
+    and by using await() we are trying to get the result back only. <br>
+    <b>So all the magic is because of await() suspended function only.</b><br>
+    6. Here we are launching 1 Coroutine (one Thread) by using launch and then this Coroutine launch 2 another Coroutines by using async, <br>
+    So these 2 Coroutines (launch by using async) will execute in parallel. <br><br>
+
+
+</p>
+
+<h3>11. When you click on "twoLaunchInsideLifecycleScope" </h3>
+
+<p>
+
+    Output: <br><br>
+
+    Function Start on thread: main <br>
+
+    Before Task  on thread: main <br>
+
+    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <b style="color:blue;">After 0 sec</b> <br>
+
+    After Task on thread: main <br>
+
+    Function End on thread: main <br><br>
+
+    * ** NOTE:-> There are 2 coroutines we are launching (by using launch) in this example.<br>
+    so both doLongRunningTaskOne & doLongRunningTaskTwo will execute in parallel on Default Thread.<br>
+    Hence after zero sec only <b> After Task on thread: main </b> will get execute.<br>
+
+
+</p>
+
+
+<br>
+
+<h1> ****************************************************************************************************</h1>
+<br>

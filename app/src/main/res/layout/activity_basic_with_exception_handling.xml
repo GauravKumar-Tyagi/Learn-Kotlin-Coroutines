@@ -8,7 +8,7 @@
     android:paddingTop="24dp"
     android:paddingRight="16dp"
     android:paddingBottom="16dp"
-    tools:context=".ui.MainActivity">
+    tools:context=".ui.basic.BasicActivityWithExceptionHandling">
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -20,100 +20,113 @@
         <Button
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:onClick="startBasicActivity"
-            android:text="@string/basic"
             android:layout_marginBottom="16dp"
+            android:onClick="twoTasks"
+            android:text="twoTasks"
+            android:textAllCaps="false"
+            android:textColor="@android:color/white" />
+
+
+        <Button
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="16dp"
+            android:onClick="parentAndChildTaskCancel"
+            android:text="parentAndChildTaskCancel"
+            android:textAllCaps="false"
             android:textColor="@android:color/white" />
 
         <Button
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:onClick="startBasicActivityWithExceptionHandling"
-            android:text="@string/basic_with_exception"
             android:layout_marginBottom="16dp"
+            android:onClick="parentAndChildTaskCancelIsActive"
+            android:text="parentAndChildTaskCancelIsActive"
+            android:textAllCaps="false"
             android:textColor="@android:color/white" />
 
         <Button
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:onClick="startSingleNetworkCallActivity"
-            android:text="@string/single_network_call"
             android:layout_marginBottom="16dp"
+            android:onClick="lifecycleScopeWithHandlerException"
+            android:text="lifecycleScopeWithHandlerException"
+            android:textAllCaps="false"
             android:textColor="@android:color/white" />
 
         <Button
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:onClick="startSeriesNetworkCallsActivity"
-            android:text="@string/series_network_calls"
             android:layout_marginBottom="16dp"
+            android:onClick="lifecycleScopeWithHandler"
+            android:text="lifecycleScopeWithHandler"
+            android:textAllCaps="false"
             android:textColor="@android:color/white" />
 
         <Button
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:onClick="startParallelNetworkCallsActivity"
-            android:text="@string/parallel_network_calls"
             android:layout_marginBottom="16dp"
+            android:onClick="myActivityScopeWithHandlerException"
+            android:text="myActivityScopeWithHandlerException"
+            android:textAllCaps="false"
             android:textColor="@android:color/white" />
 
         <Button
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:onClick="startRoomDatabaseActivity"
-            android:text="@string/room_database"
             android:layout_marginBottom="16dp"
+            android:onClick="myActivityScopeWithHandler"
+            android:text="myActivityScopeWithHandler"
+            android:textAllCaps="false"
             android:textColor="@android:color/white" />
 
         <Button
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:onClick="startTimeoutActivity"
-            android:text="@string/timeout"
             android:layout_marginBottom="16dp"
+            android:onClick="exceptionInLaunchBlock"
+            android:text="exceptionInLaunchBlock"
+            android:textAllCaps="false"
             android:textColor="@android:color/white" />
 
         <Button
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:onClick="startTryCatchActivity"
-            android:text="@string/try_catch_error"
             android:layout_marginBottom="16dp"
+            android:onClick="exceptionInAsyncBlock"
+            android:text="exceptionInAsyncBlock"
+            android:textAllCaps="false"
             android:textColor="@android:color/white" />
 
         <Button
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:onClick="startExceptionHandlerActivity"
-            android:text="@string/exception_handler"
             android:layout_marginBottom="16dp"
+            android:onClick="exceptionInAsyncBlockWithAwait"
+            android:text="exceptionInAsyncBlockWithAwait"
+            android:textAllCaps="false"
             android:textColor="@android:color/white" />
 
         <Button
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:onClick="startIgnoreErrorAndContinueActivity"
-            android:text="@string/ignore_error_and_continue"
             android:layout_marginBottom="16dp"
+            android:onClick="testSuspending"
+            android:text="testSuspending"
+            android:textAllCaps="false"
             android:textColor="@android:color/white" />
 
         <Button
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:onClick="startLongRunningTaskActivity"
-            android:text="@string/long_running_task"
             android:layout_marginBottom="16dp"
+            android:onClick="testBlocking"
+            android:text="testBlocking"
+            android:textAllCaps="false"
             android:textColor="@android:color/white" />
-
-        <Button
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:onClick="startTwoLongRunningTasksActivity"
-            android:text="@string/two_long_running_tasks"
-            android:layout_marginBottom="16dp"
-            android:textColor="@android:color/white" />
-
 
 
     </LinearLayout>
+
 </ScrollView>

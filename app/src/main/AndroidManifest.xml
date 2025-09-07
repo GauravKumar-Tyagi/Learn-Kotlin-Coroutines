@@ -15,6 +15,7 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.LearnKotlinCoroutines"
         tools:targetApi="31">
+
         <activity
             android:name=".ui.MainActivity"
             android:exported="true">
@@ -28,6 +29,10 @@
         <activity
             android:name=".ui.basic.BasicActivity"
             android:label="@string/basic" />
+
+        <activity
+            android:name=".ui.basic.BasicActivityWithExceptionHandling"
+            android:exported="false" />
 
 
     </application>
