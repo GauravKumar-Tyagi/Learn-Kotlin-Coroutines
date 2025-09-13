@@ -22,8 +22,10 @@ retrofit = "3.0.0"
 roomRuntime = "2.7.2"
 navigationFragmentKtx = "2.9.3"
 navigationUiKtx = "2.9.3"
+okhttp = "4.9.3"
 
 [libraries]
+logging-interceptor = { module = "com.squareup.okhttp3:logging-interceptor", version.ref = "okhttp" }
 androidx-core-ktx = { group = "androidx.core", name = "core-ktx", version.ref = "coreKtx" }
 androidx-core-testing = { module = "androidx.arch.core:core-testing", version.ref = "coreTesting" }
 androidx-espresso-core-v361 = { module = "androidx.test.espresso:espresso-core", version.ref = "espressoCoreVersion" }

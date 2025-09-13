@@ -66,6 +66,7 @@ dependencies {
     androidTestImplementation libs.androidx.junit.v121
     androidTestImplementation libs.androidx.espresso.core.v361
 
+    implementation libs.logging.interceptor
 
 
 }

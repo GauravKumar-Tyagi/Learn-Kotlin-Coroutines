@@ -7,7 +7,12 @@ import androidx.appcompat.app.AppCompatActivity
 import com.gaurav.learn.kotlin.coroutines.R
 import com.gaurav.learn.kotlin.coroutines.ui.basic.BasicActivity
 import com.gaurav.learn.kotlin.coroutines.ui.basic.BasicActivityWithExceptionHandling
+import com.gaurav.learn.kotlin.coroutines.ui.retrofit.parallel.ParallelNetworkCallsActivity
+import com.gaurav.learn.kotlin.coroutines.ui.retrofit.single.SingleNetworkCallActivity
+import com.gaurav.learn.kotlin.coroutines.ui.retrofit.series.SeriesNetworkCallsActivity
+import com.gaurav.learn.kotlin.coroutines.ui.room.RoomDBActivity
 import com.gaurav.learn.kotlin.coroutines.ui.basic.BasicActivityWithMoreExamples
+
 
 class MainActivity : AppCompatActivity() {
 
@@ -17,19 +22,19 @@ class MainActivity : AppCompatActivity() {
     }
 
     fun startSingleNetworkCallActivity(view: View) {
-        //startActivity(Intent(this@MainActivity, SingleNetworkCallActivity::class.java))
+        startActivity(Intent(this@MainActivity, SingleNetworkCallActivity::class.java))
     }
 
     fun startSeriesNetworkCallsActivity(view: View) {
-        //startActivity(Intent(this@MainActivity, SeriesNetworkCallsActivity::class.java))
+        startActivity(Intent(this@MainActivity, SeriesNetworkCallsActivity::class.java))
     }
 
     fun startParallelNetworkCallsActivity(view: View) {
-        //startActivity(Intent(this@MainActivity, ParallelNetworkCallsActivity::class.java))
+        startActivity(Intent(this@MainActivity, ParallelNetworkCallsActivity::class.java))
     }
 
     fun startRoomDatabaseActivity(view: View) {
-        //startActivity(Intent(this@MainActivity, RoomDBActivity::class.java))
+        startActivity(Intent(this@MainActivity, RoomDBActivity::class.java))
     }
 
     fun startTimeoutActivity(view: View) {
