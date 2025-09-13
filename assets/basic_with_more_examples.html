@@ -1,0 +1,92 @@
+<br>
+<h1> ****************************************************************************************************</h1>
+
+
+<h3>1. When you click on "testSuspending" </h3>
+<p>
+
+    Output: <br><br>
+
+    1. testSuspending Before Task 1 on thread: pool-3-thread-1 <br>
+
+    2. testSuspending Before Task 2 on thread: pool-3-thread-1 <br>
+
+    &nbsp;&nbsp;&nbsp; <b style="color:blue;"> After 5 sec. </b> <br>
+
+    3. testSuspending After Task 2 on thread: pool-3-thread-1 <br>
+
+    4. testSuspending After Task 1 on thread: pool-3-thread-1 <br>
+
+    <br><br>
+
+    * ** NOTE:-><br><br>
+
+    1. The order of 3 & 4 could be change. <br>
+
+
+    <br><br>
+
+</p>
+
+
+<h3>2. When you click on "testBlocking" </h3>
+<p>
+
+    Output: <br><br>
+
+    1. testBlocking Before Task 1 on thread: pool-3-thread-1 <br>
+
+    &nbsp;&nbsp;&nbsp; <b style="color:blue;"> After 5 sec. </b> <br>
+
+    2. testBlocking After Task 1 on thread: pool-3-thread-1 <br>
+
+    3. testBlocking Before Task 2 on thread: pool-3-thread-1 <br>
+
+    &nbsp;&nbsp;&nbsp; <b style="color:blue;"> After 5 sec. </b> <br>
+
+    4. testBlocking After Task 2 on thread: pool-3-thread-1 <br>
+
+    <br><br>
+
+    * ** NOTE:-><br><br>
+
+    1.  <br>
+
+
+    <br><br>
+
+</p>
+
+
+<h3>3. When you click on "testRunBlocking" </h3>
+
+<p>
+
+    Output: <br><br>
+
+    Before RunBlocking - on thread: main <br>
+    Coroutine is active - on thread: main <br>
+    run blocking main coroutine job BEFORE DELAY - on thread: main <br>
+    rooting : parent job - on thread: main <br>
+    Child job 1 - on thread: main <br>
+    Child job 2 - on thread: main <br>
+    run blocking main coroutine job AFTER DELAY - on thread: main <br>
+    After RunBlocking - on thread: main <br><br>
+
+    * ** NOTE:-><br><br>
+
+    1. <b style="color:blue;">runBlock will block the thread</b> as you can see in the output  <br>
+
+
+    <br><br>
+
+</p>
+
+
+
+
+
+<br>
+
+<h1> ****************************************************************************************************</h1>
+<br>

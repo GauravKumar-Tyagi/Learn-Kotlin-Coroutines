@@ -8,23 +8,31 @@
     android:paddingTop="24dp"
     android:paddingRight="16dp"
     android:paddingBottom="16dp"
-    tools:context=".ui.basic.BasicActivityWithExceptionHandling">
+    tools:context=".ui.basic.BasicActivityWithMoreExamples">
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="vertical"
         android:layout_marginTop="16dp"
+        android:orientation="vertical"
         android:paddingBottom="24dp">
 
         <Button
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginBottom="16dp"
-            android:onClick="twoTasks"
-            android:text="twoTasks"
+            android:onClick="testSuspending"
+            android:text="testSuspending"
             android:textAllCaps="false"
-            android:backgroundTint="@color/green"
+            android:textColor="@android:color/white" />
+
+        <Button
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="16dp"
+            android:onClick="testBlocking"
+            android:text="testBlocking"
+            android:textAllCaps="false"
             android:textColor="@android:color/white" />
 
 
@@ -32,93 +40,67 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginBottom="16dp"
-            android:onClick="parentAndChildTaskCancel"
-            android:text="parentAndChildTaskCancel"
+            android:onClick="myActivityScopeHandlerException"
+            android:text="myActivityScopeHandlerException"
             android:textAllCaps="false"
-            android:backgroundTint="@color/green"
+            android:textColor="@android:color/white" />
+
+
+        <Button
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="16dp"
+            android:onClick="testCoroutineExceptionHandler"
+            android:text="CoroutineExceptionHandler"
+            android:textAllCaps="false"
             android:textColor="@android:color/white" />
 
         <Button
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginBottom="16dp"
-            android:onClick="parentAndChildTaskCancelIsActive"
-            android:text="parentAndChildTaskCancelIsActive"
+            android:onClick="testRunBlocking"
+            android:text="RunBlocking"
             android:textAllCaps="false"
-            android:backgroundTint="@color/green"
+            android:textColor="@android:color/white" />
+
+
+        <Button
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="16dp"
+            android:onClick="testJob"
+            android:text="Job"
+            android:textAllCaps="false"
+            android:textColor="@android:color/white" />
+
+
+        <Button
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="16dp"
+            android:onClick="testSupervisorJob"
+            android:text="SupervisorJob"
+            android:textAllCaps="false"
             android:textColor="@android:color/white" />
 
         <Button
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginBottom="16dp"
-            android:onClick="lifecycleScopeWithHandlerException"
-            android:text="lifecycleScopeWithHandlerException"
+            android:onClick="testCoroutineScope"
+            android:text="CoroutineScope"
             android:textAllCaps="false"
-            android:backgroundTint="@color/yellow"
             android:textColor="@android:color/white" />
 
         <Button
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginBottom="16dp"
-            android:onClick="lifecycleScopeWithHandler"
-            android:text="lifecycleScopeWithHandler"
+            android:onClick="testSupervisorScope"
+            android:text="SupervisorScope"
             android:textAllCaps="false"
-            android:backgroundTint="@color/yellow"
             android:textColor="@android:color/white" />
-
-        <Button
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginBottom="16dp"
-            android:onClick="myActivityScopeWithHandlerException"
-            android:text="myActivityScopeWithHandlerException"
-            android:textAllCaps="false"
-            android:backgroundTint="@color/yellow"
-            android:textColor="@android:color/white" />
-
-        <Button
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginBottom="16dp"
-            android:onClick="myActivityScopeWithHandler"
-            android:text="myActivityScopeWithHandler"
-            android:textAllCaps="false"
-            android:backgroundTint="@color/yellow"
-            android:textColor="@android:color/white" />
-
-        <Button
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginBottom="16dp"
-            android:onClick="exceptionInLaunchBlock"
-            android:text="exceptionInLaunchBlock"
-            android:textAllCaps="false"
-            android:backgroundTint="@color/orange"
-            android:textColor="@android:color/white" />
-
-        <Button
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginBottom="16dp"
-            android:onClick="exceptionInAsyncBlock"
-            android:text="exceptionInAsyncBlock"
-            android:textAllCaps="false"
-            android:backgroundTint="@color/orange"
-            android:textColor="@android:color/white" />
-
-        <Button
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginBottom="16dp"
-            android:onClick="exceptionInAsyncBlockWithAwait"
-            android:text="exceptionInAsyncBlockWithAwait"
-            android:textAllCaps="false"
-            android:backgroundTint="@color/orange"
-            android:textColor="@android:color/white" />
-
-
 
 
     </LinearLayout>

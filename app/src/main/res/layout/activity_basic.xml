@@ -22,6 +22,7 @@
             android:text="testCoroutine"
             android:textAllCaps="false"
             android:layout_marginBottom="16dp"
+            android:backgroundTint="@color/green"
             android:textColor="@android:color/white" />
 
         <Button
@@ -31,6 +32,7 @@
             android:text="usingMyActivityScope"
             android:textAllCaps="false"
             android:layout_marginBottom="16dp"
+            android:backgroundTint="@color/green"
             android:textColor="@android:color/white" />
 
         <Button
@@ -40,6 +42,7 @@
             android:text="testCoroutineWithMain"
             android:textAllCaps="false"
             android:layout_marginBottom="16dp"
+            android:backgroundTint="@color/green"
             android:textColor="@android:color/white" />
 
 
@@ -50,6 +53,7 @@
             android:text="usingGlobalScope"
             android:textAllCaps="false"
             android:layout_marginBottom="16dp"
+            android:backgroundTint="@color/yellow"
             android:textColor="@android:color/white" />
 
 
@@ -60,6 +64,7 @@
             android:text="globalScopeInsideLifecycleScope"
             android:textAllCaps="false"
             android:layout_marginBottom="16dp"
+            android:backgroundTint="@color/yellow"
             android:textColor="@android:color/white" />
 
         <Button
@@ -69,6 +74,7 @@
             android:text="launchInsideLifecycleScope"
             android:textAllCaps="false"
             android:layout_marginBottom="16dp"
+            android:backgroundTint="@color/yellow"
             android:textColor="@android:color/white" />
 
         <Button
@@ -78,6 +84,7 @@
             android:text="testCoroutineEverything"
             android:textAllCaps="false"
             android:layout_marginBottom="16dp"
+            android:backgroundTint="@color/orange"
             android:textColor="@android:color/white" />
 
 
@@ -88,6 +95,7 @@
             android:text="twoLaunches"
             android:textAllCaps="false"
             android:layout_marginBottom="16dp"
+            android:backgroundTint="@color/orange"
             android:textColor="@android:color/white" />
 
         <Button
@@ -97,6 +105,7 @@
             android:text="twoWithContextInsideLifecycleScope"
             android:textAllCaps="false"
             android:layout_marginBottom="16dp"
+            android:backgroundTint="@color/orange"
             android:textColor="@android:color/white" />
 
         <Button
@@ -106,6 +115,7 @@
             android:text="twoAsyncInsideLifecycleScope"
             android:textAllCaps="false"
             android:layout_marginBottom="16dp"
+            android:backgroundTint="@color/orange"
             android:textColor="@android:color/white" />
 
         <Button
@@ -115,6 +125,7 @@
             android:text="twoLaunchInsideLifecycleScope"
             android:textAllCaps="false"
             android:layout_marginBottom="16dp"
+            android:backgroundTint="@color/orange"
             android:textColor="@android:color/white" />
 
     </LinearLayout>

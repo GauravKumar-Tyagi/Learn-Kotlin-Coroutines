@@ -7,6 +7,7 @@ import androidx.appcompat.app.AppCompatActivity
 import com.gaurav.learn.kotlin.coroutines.R
 import com.gaurav.learn.kotlin.coroutines.ui.basic.BasicActivity
 import com.gaurav.learn.kotlin.coroutines.ui.basic.BasicActivityWithExceptionHandling
+import com.gaurav.learn.kotlin.coroutines.ui.basic.BasicActivityWithMoreExamples
 
 class MainActivity : AppCompatActivity() {
 
@@ -61,6 +62,10 @@ class MainActivity : AppCompatActivity() {
 
     fun startBasicActivityWithExceptionHandling(view: View) {
         startActivity(Intent(this@MainActivity, BasicActivityWithExceptionHandling::class.java))
+    }
+
+    fun startBasicActivityWithMoreExamples(view: View) {
+        startActivity(Intent(this@MainActivity, BasicActivityWithMoreExamples::class.java))
     }
 
 

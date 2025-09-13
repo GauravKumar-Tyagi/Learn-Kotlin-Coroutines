@@ -23,6 +23,7 @@
             android:onClick="startBasicActivity"
             android:text="@string/basic"
             android:layout_marginBottom="16dp"
+            android:backgroundTint="@color/green"
             android:textColor="@android:color/white" />
 
         <Button
@@ -31,6 +32,16 @@
             android:onClick="startBasicActivityWithExceptionHandling"
             android:text="@string/basic_with_exception"
             android:layout_marginBottom="16dp"
+            android:backgroundTint="@color/green"
+            android:textColor="@android:color/white" />
+
+        <Button
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:onClick="startBasicActivityWithMoreExamples"
+            android:text="@string/basic_more_examples"
+            android:layout_marginBottom="16dp"
+            android:backgroundTint="@color/green"
             android:textColor="@android:color/white" />
 
         <Button
@@ -39,6 +50,7 @@
             android:onClick="startSingleNetworkCallActivity"
             android:text="@string/single_network_call"
             android:layout_marginBottom="16dp"
+            android:backgroundTint="@color/yellow"
             android:textColor="@android:color/white" />
 
         <Button
@@ -47,6 +59,7 @@
             android:onClick="startSeriesNetworkCallsActivity"
             android:text="@string/series_network_calls"
             android:layout_marginBottom="16dp"
+            android:backgroundTint="@color/yellow"
             android:textColor="@android:color/white" />
 
         <Button
@@ -55,6 +68,7 @@
             android:onClick="startParallelNetworkCallsActivity"
             android:text="@string/parallel_network_calls"
             android:layout_marginBottom="16dp"
+            android:backgroundTint="@color/yellow"
             android:textColor="@android:color/white" />
 
         <Button
@@ -110,7 +124,7 @@
             android:layout_height="wrap_content"
             android:onClick="startTwoLongRunningTasksActivity"
             android:text="@string/two_long_running_tasks"
-            android:layout_marginBottom="16dp"
+            android:layout_marginBottom="20dp"
             android:textColor="@android:color/white" />
 
 

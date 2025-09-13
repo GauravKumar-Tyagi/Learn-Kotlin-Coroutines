@@ -32,6 +32,12 @@
 
         <activity
             android:name=".ui.basic.BasicActivityWithExceptionHandling"
+            android:label="@string/basic_with_exception"
+            android:exported="false" />
+
+        <activity
+            android:name=".ui.basic.BasicActivityWithMoreExamples"
+            android:label="@string/basic_more_examples"
             android:exported="false" />
 
 

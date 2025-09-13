@@ -287,6 +287,30 @@ class BasicActivity : AppCompatActivity() {
         Log.d(TAG, "Function End on thread: ${Thread.currentThread().name}")
     }
 
+    private fun learnLaunchWithJob() {
+        val job = lifecycleScope.launch(Dispatchers.Default) {
+            // do something
+        }
+    }
+
+    private suspend fun learnAsync(): Int {
+        val deferred = lifecycleScope.async(Dispatchers.Default) {
+            // do something
+            return@async 10
+        }
+        val result = deferred.await()
+        return result
+    }
+
+    private suspend fun learnWithContext(): Int {
+        val result = withContext(Dispatchers.Default) {
+            // do something
+            return@withContext 10
+        }
+        return result
+    }
+
+
     /************ Helper Methods Start ************/
 
     /**

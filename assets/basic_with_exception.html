@@ -1,0 +1,425 @@
+<br>
+<h1> ****************************************************************************************************</h1>
+
+
+<h3>1. When you click on "twoTasks" </h3>
+<p>
+
+    Output: <br><br>
+
+    Function Start on thread: main <br>
+
+    Function End on thread: main <br>
+
+    Before Task 1 on thread: main <br>
+
+    doLongRunningTask-1 Start on thread: main <br>
+
+    ------------------------------------------------------------------------------ <br><br>
+
+    Before Delay-1 on thread: DefaultDispatcher-worker-1
+
+    &nbsp;&nbsp;&nbsp; <b style="color:blue;"> => ( Sometimes it will not print because of job.cancel() )</b> <br>
+
+    Before Task 2 on thread: main <br><br>
+
+    * ** NOTE:-> above order could be change <br><br>
+
+
+    ------------------------------------------------------------------------------ <br>
+
+    doLongRunningTask-2 Start on thread: main <br>
+
+    Before Delay-2 on thread: DefaultDispatcher-worker-2 <br>
+
+    After Delay-2 on thread: DefaultDispatcher-worker-2 <br>
+
+    doLongRunningTask-2 End on thread: main <br>
+
+    After Task 2 on thread: main <br><br>
+
+    * ** NOTE:-><br><br>
+
+</p>
+
+
+<h3>2. When you click on "parentAndChildTaskCancel" </h3>
+<p>
+
+    Output: <br><br>
+
+    Function Start on thread: main <br>
+
+    Function End on thread: main <br>
+
+    Before Task on thread: main <br>
+
+    childTask Start on thread: DefaultDispatcher-worker-1 <br>
+
+    childTask parent cancel on thread: DefaultDispatcher-worker-1 <br><br>
+
+    * ** NOTE:-><br>
+    1.  Here, we are launching ( or using ) only 1 Coroutine. <br>
+    and we are cancelling the same coroutine inside childTask() function by using parent.cancel() <br>
+    2. Here, there is nothing like child & parent Coroutine. There is only 1 Coroutine and this Coroutine has only 1 task/job. <br>
+    and if we cancel that job then everything will get cancelled. <br>
+    3. Here, withContext is used to switch the context of the coroutine to DefaultDispatcher-worker-1  [ Dispatchers (Thread) ]. <br>
+    4. withContext never creates a new Coroutine. withContext can change the Thread for Coroutine.<br>
+    <b style="color:blue;">Ideally withContext is used to change the Context, and Context means we can also change the Scope, Job etc.</b><br>
+    5. In this code, there is only ONE Coroutine, but ONE Coroutine can have multiple Dispatchers (or multiple Threads) by using withContext. <br>
+    6. Here, childTask is NOT a child Task, it is just an another suspend function only. <br>
+
+
+</p>
+
+
+<h3>3. When you click on "parentAndChildTaskCancelIsActive" </h3>
+
+<p>
+
+    Output: <br><br>
+
+    Function Start on thread: main <br>
+
+    Function End on thread: main <br>
+
+    Before Task on thread: main <br>
+
+    childTask Start on thread: DefaultDispatcher-worker-1 <br><br>
+
+    * ** NOTE:-><br>
+    1.  Here, we are launching ( or using ) only 1 Coroutine. <br>
+    and we are cancelling the same coroutine inside childTaskWithIsActive() function by using parent.cancel() <br>
+    2. Here, there is nothing like child & parent Coroutine. There is only 1 Coroutine. <br>
+    3. isActive to check the specific Coroutine is active or not. <br>
+    4. delay() function is also implement this isActive check internally. <br>
+    5. Whenever we cancel the job then isActive for that Coroutine will become false. <br>
+
+
+
+</p>
+
+<h3 style="color:red;"> ###############@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@################# </h3>
+
+<h3>4. When you click on "lifecycleScopeWithHandlerException" </h3>
+
+<p>
+
+    Output: <br><br>
+
+    Function Start on thread: main <br>
+
+    Before Task on thread: main <br>
+
+    doLongRunningTask Start on thread: main <br>
+
+    ------------------------------------------------------------------------------ <br><br>
+
+    Function End on thread: main <br>
+
+    Before Delay on thread: DefaultDispatcher-worker-2 <br><br>
+
+    * ** NOTE:-> above order could be change <br><br>
+
+    ------------------------------------------------------------------------------ <br>
+
+    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <b style="color:blue;">After 5 sec </b> <br>
+
+    After Delay on thread: DefaultDispatcher-worker-2 <br>
+
+    doLongRunningTask End on thread: main <br>
+
+    exception handler:  java.lang.Exception: Some Exception  on thread: main <br><br>
+
+    * ** NOTE:-><br>
+    1. App will not crash because we are handling the exception by using CoroutineExceptionHandler. <br>
+    But if I remove the exceptionHandler from lifecycleScope.launch(exceptionHandler) { } then App will crash. <br>
+    2. Here, "After Task" will not print because when exception occurs then remaining code will not execute. <br>
+    3. In the launch we can do so many things like: <br>
+    lifecycleScope.launch ( exceptionHandler + Dispatchers.Main ) { }  and so on... <br>
+    <br>
+
+</p>
+
+
+<h3>5. When you click on "lifecycleScopeWithHandler" </h3>
+
+<p>
+
+    Output: <br><br>
+
+    Function Start on thread: main <br>
+
+    Before Task on thread: main <br>
+
+    doLongRunningTask Start on thread: main <br>
+
+    ------------------------------------------------------------------------------ <br><br>
+
+    Function End on thread: main <br>
+
+    Before Delay on thread: DefaultDispatcher-worker-1 <br><br>
+
+    * ** NOTE:-> above order could be change <br><br>
+
+    ------------------------------------------------------------------------------ <br>
+
+    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <b style="color:blue;">After 5 sec </b> <br>
+
+    After Delay on thread: DefaultDispatcher-worker-1 <br>
+
+    doLongRunningTask End on thread: main <br>
+
+    After Task on thread: main<br><br>
+
+
+    * ** NOTE:-><br>
+    1. If I click on "lifecycleScopeWithHandlerException" button first and then I click on "lifecycleScopeWithHandler" button then also it will work fine. <br>
+    So in that case we will get the output as: <br>
+    Output of "lifecycleScopeWithHandlerException" button click <br>
+    + <br>
+    Output of "lifecycleScopeWithHandler" button click <br>
+    <br>
+
+
+</p>
+
+
+
+<h3>6. When you click on "myActivityScopeWithHandlerException" </h3>
+
+<p>
+
+
+    * ** NOTE:-> <br><br>
+    <b style="color:blue;">
+        The key difference between myActivityScope and lifecycleScope lies in how they handle exceptions.
+    </b><br>
+
+
+    <br><br>
+
+
+    <b style="color:blue;">Output on FIRST CLICK: </b> <br><br>
+
+    Function Start on thread: main <br>
+
+    Before Task on thread: main <br>
+
+    doLongRunningTask Start on thread: main <br>
+
+    ------------------------------------------------------------------------------ <br><br>
+
+    Function End on thread: main <br>
+
+    Before Delay on thread: DefaultDispatcher-worker-1 <br><br>
+
+    * ** NOTE:-> above order could be change <br><br>
+
+    ------------------------------------------------------------------------------ <br>
+
+    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <b style="color:blue;">After 5 sec </b> <br>
+
+    After Delay on thread: DefaultDispatcher-worker-1 <br>
+
+    doLongRunningTask End on thread: main <br>
+
+    exception handler:  java.lang.Exception: Some Exception  on thread: main <br><br>
+
+    <b style="color:blue;">Output on SECOND CLICK onwards: </b> <br><br>
+
+    Function Start on thread: main <br>
+
+    Function End on thread: main <br><br>
+
+    * ** NOTE:-><br><br>
+    1. So here also, App will not crash because we are handling the exception by using CoroutineExceptionHandler. <br>
+    But if I remove the exceptionHandler from myActivityScope.launch(exceptionHandler) { } then App will crash. <br><br>
+    2. <b style="color:blue;">Output on SECOND CLICK onwards:  <br><br>
+
+    Function Start on thread: main <br>
+
+    Function End on thread: main <br> </b></b>
+
+    3. <b style="color:blue;"> lifecycleScope & myActivityScope are same but exception handling for both are different. </b> <br>
+    So if any exception occurs in myActivityScope then that scope (myActivityScope) will get cancelled/destroyed permanently. <br>
+
+    4. In case of lifecycleScope, if any exception occurs then also that scope (lifecycleScope) will be alive. <br>
+
+    5. So myActivityScope has been cancelled/destroyed permanently. Hence on the 2nd click onwards we only get the output as: <br>
+    Function Start on thread: main <br>
+
+    Function End on thread: main <br>
+
+    6. Reason: <br>
+    private val myActivityScope = CoroutineScope(Dispatchers.Main.immediate) will convert internally to <br>
+    private val myActivityScope = CoroutineScope(Dispatchers.Main.immediate + Job()) <br><br>
+
+    and this behaviour is because of Job() only. <br>
+
+    If we create the myActivityScope like below then it will work fine: <br><br>
+
+    private val myActivityScope = CoroutineScope(Dispatchers.Main.immediate) + SupervisorJob()) <br><br>
+
+    Even lifecycleScope use SupervisorJob() internally. <br><br>
+
+    <br>
+
+
+
+
+</p>
+
+
+<h3>7. When you click on "myActivityScopeWithHandler" </h3>
+
+<p>
+
+
+    Output: <br><br>
+
+    Function Start on thread: main <br>
+
+    Before Task on thread: main <br>
+
+    doLongRunningTask Start on thread: main <br>
+
+    ------------------------------------------------------------------------------ <br><br>
+
+    Function End on thread: main <br>
+
+    Before Delay on thread: <b style="color:blue;">DefaultDispatcher-worker-2 </b> <br><br>
+
+    * ** NOTE:-> above order could be change <br><br>
+
+    ------------------------------------------------------------------------------ <br>
+
+    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <b style="color:blue;">After 5 sec </b> <br>
+
+    After Delay on thread: <b style="color:blue;">DefaultDispatcher-worker-1 </b> <br>
+
+    doLongRunningTask End on thread: main <br>
+
+    After Task on thread: main<br><br>
+
+
+    * ** NOTE:-><br>
+    Scenario 1=> If I click on "myActivityScopeWithHandlerException" button first and then I click on "myActivityScopeWithHandler" button <br>
+    then the output of "myActivityScopeWithHandler" button click will be: <br>
+    Function Start on thread: main <br>
+
+    Function End on thread: main <br>
+    <br>
+    <b style="color:blue;">because of ABOVE reason.</b> <br><br>
+    <br>
+
+</p>
+
+<h3 style="color:red;"> ###############@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@################# </h3>
+
+<h3>8. When you click on "exceptionInLaunchBlock" </h3>
+
+<p>
+
+    Output: <br><br>
+
+    App will crash as we are not handling the exception. <br><br>
+
+
+    * ** NOTE:-><br><br>
+    1. If we handle the exception like below then also app will crash: <br><br>
+
+    try { <br>
+    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; exceptionInLaunchBlock() <br>
+    } catch(e: Exception) { <br>
+    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Log.d(TAG, "Exception...") <br>
+    } <br><br>
+
+    2. If we handle the exception like below then app will NOT crash: <br><br>
+
+    lifecycleScope.launch { <br>
+    &nbsp;&nbsp;&nbsp;&nbsp; try { <br>
+    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; doSomethingAndThrowException() <br>
+    &nbsp;&nbsp;&nbsp;&nbsp; } catch (e: Exception) { <br>
+    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Log.d(TAG, "Caught Exception: $e ") <br>
+    &nbsp;&nbsp;&nbsp;&nbsp; } <br>
+    } <br><br>
+
+    3. <b style="color:blue;">
+    Hence, in case of exception in launch { } block we can handle the exception: <br><br>
+    A) by using try-catch inside launch { } block. <br><br>
+
+    lifecycleScope.launch { <br>
+    &nbsp;&nbsp;&nbsp;&nbsp; try { <br>
+    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; doSomethingAndThrowException() <br>
+    &nbsp;&nbsp;&nbsp;&nbsp; } catch (e: Exception) { <br>
+    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Log.d(TAG, "Caught Exception: $e ") <br>
+    &nbsp;&nbsp;&nbsp;&nbsp; } <br>
+    } <br><br>
+
+    B) by using CoroutineExceptionHandler. <br><br>
+    private val exceptionHandler = CoroutineExceptionHandler { _, e -> <br>
+    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Log.d(TAG, "exception handler: $e  on thread: ${Thread.currentThread().name}") <br>
+    }<br><br>
+
+
+    lifecycleScope.launch(exceptionHandler) { <br>
+    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; doSomethingAndThrowException() <br>
+    } <br>
+
+    </b>
+
+    <br><br>
+
+
+</p>
+
+<h3>9. When you click on "exceptionInAsyncBlock" </h3>
+
+<p>
+
+    Output: <br><br>
+
+    NOTHING, App will NOT crash. <br><br>
+
+
+    * ** NOTE:-> <br><br>
+    1. In case of async { } block, if exception is not handled then also App will NOT crash. <br><br>
+
+    <br><br>
+
+
+</p>
+
+
+<h3>10. When you click on "exceptionInAsyncBlockWithAwait" </h3>
+
+<p>
+
+    Output: <br><br>
+
+    exception handler: java.lang.Exception: Some Exception    on thread: main <br><br>
+
+
+    * ** NOTE:-> <br><br>
+    1. If you do not handle the exception like below: <br><br>
+
+    &nbsp;&nbsp;&nbsp;&nbsp;// try { <br>
+    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;val result = deferred.await() <br>
+    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Log.d(TAG, "Result is $result   on thread: ${Thread.currentThread().name}  ") <br>
+    &nbsp;&nbsp;&nbsp;&nbsp;// } catch (e: Exception) { <br>
+    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;// Log.d(TAG, "exception handler: $e    on thread: ${Thread.currentThread().name}  ") <br>
+    &nbsp;&nbsp;&nbsp;&nbsp;// } <br><br>
+
+    then App will crash. <br>
+
+    <br><br>
+
+
+</p>
+
+
+<br>
+
+<h1> ****************************************************************************************************</h1>
+<br>
