@@ -61,6 +61,21 @@
             android:exported="false"
             />
 
+        <activity android:name=".ui.errorhandling.exceptionhandler.ExceptionHandlerActivity"
+            android:label="@string/room_database"
+            android:exported="false"
+            />
+
+        <activity android:name=".ui.errorhandling.supervisorscope.IgnoreErrorAndContinueActivity"
+            android:label="@string/ignore_error_and_continue"
+            android:exported="false"
+            />
+
+        <activity android:name=".ui.timeout.TimeoutActivity"
+            android:label="@string/timeout"
+            android:exported="false"
+            />
+
     </application>
 
 </manifest>

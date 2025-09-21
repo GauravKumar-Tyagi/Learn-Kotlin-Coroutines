@@ -13,9 +13,11 @@ import kotlinx.coroutines.Job
 import kotlinx.coroutines.SupervisorJob
 import kotlinx.coroutines.asCoroutineDispatcher
 import kotlinx.coroutines.cancel
+import kotlinx.coroutines.coroutineScope
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.runBlocking
+import kotlinx.coroutines.supervisorScope
 import kotlinx.coroutines.withContext
 import java.util.concurrent.Executors
 
@@ -62,9 +64,9 @@ class BasicActivityWithMoreExamples : AppCompatActivity() {
     fun testCoroutineExceptionHandler(view: View) {
         //testCoroutineExceptionHandlerOne()
         //testCoroutineExceptionHandlerTwo()
-        //testCoroutineExceptionHandlerThree()
+        testCoroutineExceptionHandlerThree()
         //testCoroutineExceptionHandlerFour()
-        testCoroutineExceptionHandlerFive()
+        //testCoroutineExceptionHandlerFive()
     }
 
     fun testRunBlocking(view: View) {
@@ -72,19 +74,21 @@ class BasicActivityWithMoreExamples : AppCompatActivity() {
     }
 
     fun testJob(view: View) {
-        testJob()
+        //testJob()
+        testJobWithTryCatch()
     }
 
     fun testSupervisorJob(view: View) {
-        testSupervisorJob()
+        //testSupervisorJob()
+        testSupervisorJobWithTryCatch()
     }
 
     fun testCoroutineScope(view: View) {
-
+        testCoroutineScope()
     }
 
     fun testSupervisorScope(view: View) {
-
+        testSupervisorScope()
     }
 
 
@@ -92,6 +96,128 @@ class BasicActivityWithMoreExamples : AppCompatActivity() {
 
 
     /****** @@@@@ *********/
+
+    /**
+     * Use SupervisorJob when you don't want an exception from a child to cancel the parent or the other children,
+     * because if a parent fails, then all its children are cancelled.
+     *
+     * Supervisor Scope is only used as a parent to run children coroutines,
+     * and so you can use it as a builder to wrap children coroutines to avoid cancellation of
+     * children coroutines if one child is cancelled due to an exception thrown.
+     */
+    private fun testSupervisorScope() {
+
+
+        val parentJob = myCustomScope_1.launch(exceptionHandler) {
+
+            Log.d(TAG, "parentJob started...")
+
+            supervisorScope {
+
+                // Launch Task 1
+                launch {
+                    Log.d(TAG, "Task 1 started")
+                    // Simulate some work
+                    for (i in 1..5) {
+                        Log.d(TAG, "Task 1 is working... $i")
+                        delay(500)
+                    }
+                    Log.d(TAG, "Task 1 completed")
+                }
+
+                // Launch Task 2 (this one will throw an exception)
+                launch {
+                    //try {
+                        Log.d(TAG, "Task 2 started")
+                        // Simulate some work that will fail
+                        delay(1000)
+                        throw Exception("Simulated error in Task 2")
+                    //} catch (e: Exception) {
+                        //Log.d(TAG, "Task 2 failed with exception: ${e.message}")
+                    //}
+                }
+
+                // Launch Task 3
+                launch {
+                    Log.d(TAG, "Task 3 started")
+                    // Simulate some work
+                    for (i in 1..5) {
+                        Log.d(TAG, "Task 3 is working... $i")
+                        delay(700)
+                    }
+                    Log.d(TAG, "Task 3 completed")
+                }
+
+
+            }
+
+            delay(300)
+            Log.d(TAG, "ParentJob Task Running")
+            delay(3000)
+            Log.d(TAG, "ParentJob Task Completed")
+
+        }
+
+
+    }
+
+    private fun testCoroutineScope() {
+
+
+        val parentJob = lifecycleScope.launch(exceptionHandler) {
+
+            Log.d(TAG, "parentJob started...")
+
+            coroutineScope {
+
+
+                // Launch Task 1
+                launch {
+                    Log.d(TAG, "Task 1 started")
+                    // Simulate some work
+                    for (i in 1..5) {
+                        Log.d(TAG, "Task 1 is working... $i")
+                        delay(500)
+                    }
+                    Log.d(TAG, "Task 1 completed")
+                }
+
+                // Launch Task 2 (this one will throw an exception)
+                launch {
+                    //try {
+                    Log.d(TAG, "Task 2 started")
+                    // Simulate some work that will fail
+                    delay(1000)
+                    throw Exception("Simulated error in Task 2")
+                    //} catch (e: Exception) {
+                    //Log.d(TAG, "Task 2 failed with exception: ${e.message}")
+                    //}
+                }
+
+                // Launch Task 3
+                launch {
+                    Log.d(TAG, "Task 3 started")
+                    // Simulate some work
+                    for (i in 1..5) {
+                        Log.d(TAG, "Task 3 is working... $i")
+                        delay(700)
+                    }
+                    Log.d(TAG, "Task 3 completed")
+                }
+
+
+            }
+
+            delay(300)
+            Log.d(TAG, "ParentJob Task Running")
+            delay(3000)
+            Log.d(TAG, "ParentJob Task Completed")
+
+        }
+
+
+    }
+
 
     private val exceptionHandler = CoroutineExceptionHandler { _, e ->
         Log.d(TAG, "exception handler: $e  on thread: ${Thread.currentThread().name}")
@@ -105,6 +231,10 @@ class BasicActivityWithMoreExamples : AppCompatActivity() {
     /**
      * Use SupervisorJob when you don't want an exception from a child to cancel the parent or the other children,
      * because if a parent fails, then all its children are cancelled.
+     *
+     * Supervisor Scope is only used as a parent to run children coroutines,
+     * and so you can use it as a builder to wrap children coroutines to avoid cancellation of
+     * children coroutines if one child is cancelled due to an exception thrown.
      */
     private fun testSupervisorJob() {
 
@@ -133,6 +263,55 @@ class BasicActivityWithMoreExamples : AppCompatActivity() {
                 //} catch (e: Exception) {
                     //Log.d(TAG, "Task 2 failed with exception: ${e.message}")
                 //}
+            }
+
+            // Launch Task 3
+            val child3 = launch {
+                Log.d(TAG, "Task 3 started")
+                // Simulate some work
+                for (i in 1..5) {
+                    Log.d(TAG, "Task 3 is working... $i")
+                    delay(700)
+                }
+                Log.d(TAG, "Task 3 completed")
+            }
+
+            delay(300)
+            Log.d(TAG, "ParentJob Task Running")
+            delay(3000)
+            Log.d(TAG, "ParentJob Task Completed")
+
+        }
+
+    }
+
+    private fun testSupervisorJobWithTryCatch() {
+
+        val parentJob = myCustomScope_2.launch {
+
+            Log.d(TAG, "parentJob started...")
+
+            // Launch Task 1
+            val child1 = launch {
+                Log.d(TAG, "Task 1 started")
+                // Simulate some work
+                for (i in 1..5) {
+                    Log.d(TAG, "Task 1 is working... $i")
+                    delay(500)
+                }
+                Log.d(TAG, "Task 1 completed")
+            }
+
+            // Launch Task 2 (this one will throw an exception)
+            val child2 = launch {
+                try {
+                    Log.d(TAG, "Task 2 started")
+                    // Simulate some work that will fail
+                    delay(1000)
+                    throw Exception("Simulated error in Task 2")
+                } catch (e: Exception) {
+                    Log.d(TAG, "Task 2 failed with exception: ${e.message}")
+                }
             }
 
             // Launch Task 3
@@ -213,6 +392,54 @@ class BasicActivityWithMoreExamples : AppCompatActivity() {
 
     }
 
+    private fun testJobWithTryCatch() {
+
+        val parentJob = myCustomScope_1.launch {
+
+            Log.d(TAG, "parentJob started...")
+
+            // Launch Task 1
+            val child1 = launch {
+                Log.d(TAG, "Task 1 started")
+                // Simulate some work
+                for (i in 1..5) {
+                    Log.d(TAG, "Task 1 is working... $i")
+                    delay(500)
+                }
+                Log.d(TAG, "Task 1 completed")
+            }
+
+            // Launch Task 2 (this one will throw an exception)
+            val child2 = launch {
+                try {
+                    Log.d(TAG, "Task 2 started")
+                    // Simulate some work that will fail
+                    delay(1000)
+                    throw Exception("Simulated error in Task 2")
+                } catch (e: Exception) {
+                    Log.d(TAG, "Task 2 failed with exception: ${e.message}")
+                }
+            }
+
+            // Launch Task 3
+            val child3 = launch {
+                Log.d(TAG, "Task 3 started")
+                // Simulate some work
+                for (i in 1..5) {
+                    Log.d(TAG, "Task 3 is working... $i")
+                    delay(700)
+                }
+                Log.d(TAG, "Task 3 completed")
+            }
+
+            delay(300)
+            Log.d(TAG, "ParentJob Task Running")
+            delay(3000)
+            Log.d(TAG, "ParentJob Task Completed")
+
+        }
+
+    }
 
     /**
      * The CoroutineExceptionHandler only handles exceptions for the coroutine
@@ -278,7 +505,8 @@ class BasicActivityWithMoreExamples : AppCompatActivity() {
      * exception handler (exceptionHandler) to parent.
      */
     private fun testCoroutineExceptionHandlerThree() {
-        lifecycleScope.launch(exceptionHandler) {
+        //lifecycleScope.launch(exceptionHandler)
+        lifecycleScope.launch {
             Log.d(TAG, "1. This will run on thread: ${Thread.currentThread().name}")
             launch {
                 try {

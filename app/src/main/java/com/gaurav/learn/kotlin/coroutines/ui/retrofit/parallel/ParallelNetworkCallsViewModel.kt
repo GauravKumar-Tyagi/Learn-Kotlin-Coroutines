@@ -25,10 +25,11 @@ class ParallelNetworkCallsViewModel(
     }
 
     init {
-        fetchUsers()
+        fetchUsersWithHandlers()
+        //fetchUsersWithTryCatch()
     }
 
-    private fun fetchUsers() {
+    private fun fetchUsersWithHandlers() {
         viewModelScope.launch(exceptionHandler) {
             uiState.postValue(UiState.Loading)
 
@@ -43,6 +44,30 @@ class ParallelNetworkCallsViewModel(
             allUsersFromApi.addAll(moreUsersFromApi)
 
             uiState.postValue(UiState.Success(allUsersFromApi))
+        }
+    }
+
+
+    private fun fetchUsersWithTryCatch() {
+        viewModelScope.launch {
+            uiState.postValue(UiState.Loading)
+            try {
+                // do long running tasks, for example network calls
+                val usersFromApiDeferred = async { apiHelper.getUsers() }
+                val moreUsersFromApiDeferred = async { apiHelper.getMoreUsers() }
+
+                val usersFromApi = usersFromApiDeferred.await()
+                val moreUsersFromApi = moreUsersFromApiDeferred.await()
+
+                val allUsersFromApi = mutableListOf<ApiUser>()
+                allUsersFromApi.addAll(usersFromApi)
+                allUsersFromApi.addAll(moreUsersFromApi)
+
+                uiState.postValue(UiState.Success(allUsersFromApi))
+
+            } catch (e: Exception) {
+                uiState.postValue(UiState.Error("Something Went Wrong: ${e.message}"))
+            }
         }
     }
 

@@ -77,22 +77,16 @@
             android:onClick="startRoomDatabaseActivity"
             android:text="@string/room_database"
             android:layout_marginBottom="16dp"
+            android:backgroundTint="@color/orange"
             android:textColor="@android:color/white" />
 
         <Button
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:onClick="startTimeoutActivity"
-            android:text="@string/timeout"
+            android:onClick="startIgnoreErrorAndContinueActivity"
+            android:text="@string/ignore_error_and_continue"
             android:layout_marginBottom="16dp"
-            android:textColor="@android:color/white" />
-
-        <Button
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:onClick="startTryCatchActivity"
-            android:text="@string/try_catch_error"
-            android:layout_marginBottom="16dp"
+            android:backgroundTint="@color/orange"
             android:textColor="@android:color/white" />
 
         <Button
@@ -103,30 +97,14 @@
             android:layout_marginBottom="16dp"
             android:textColor="@android:color/white" />
 
+
         <Button
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:onClick="startIgnoreErrorAndContinueActivity"
-            android:text="@string/ignore_error_and_continue"
+            android:onClick="startTimeoutActivity"
+            android:text="@string/timeout"
             android:layout_marginBottom="16dp"
             android:textColor="@android:color/white" />
-
-        <Button
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:onClick="startLongRunningTaskActivity"
-            android:text="@string/long_running_task"
-            android:layout_marginBottom="16dp"
-            android:textColor="@android:color/white" />
-
-        <Button
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:onClick="startTwoLongRunningTasksActivity"
-            android:text="@string/two_long_running_tasks"
-            android:layout_marginBottom="20dp"
-            android:textColor="@android:color/white" />
-
 
 
     </LinearLayout>

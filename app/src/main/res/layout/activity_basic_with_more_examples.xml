@@ -43,6 +43,7 @@
             android:onClick="myActivityScopeHandlerException"
             android:text="myActivityScopeHandlerException"
             android:textAllCaps="false"
+            android:backgroundTint="@color/green"
             android:textColor="@android:color/white" />
 
 
@@ -53,6 +54,7 @@
             android:onClick="testCoroutineExceptionHandler"
             android:text="CoroutineExceptionHandler"
             android:textAllCaps="false"
+            android:backgroundTint="@color/green"
             android:textColor="@android:color/white" />
 
         <Button
@@ -62,6 +64,7 @@
             android:onClick="testRunBlocking"
             android:text="RunBlocking"
             android:textAllCaps="false"
+            android:backgroundTint="@color/yellow"
             android:textColor="@android:color/white" />
 
 
@@ -72,6 +75,7 @@
             android:onClick="testJob"
             android:text="Job"
             android:textAllCaps="false"
+            android:backgroundTint="@color/orange"
             android:textColor="@android:color/white" />
 
 
@@ -82,6 +86,7 @@
             android:onClick="testSupervisorJob"
             android:text="SupervisorJob"
             android:textAllCaps="false"
+            android:backgroundTint="@color/orange"
             android:textColor="@android:color/white" />
 
         <Button
@@ -91,6 +96,7 @@
             android:onClick="testCoroutineScope"
             android:text="CoroutineScope"
             android:textAllCaps="false"
+            android:backgroundTint="@color/orange"
             android:textColor="@android:color/white" />
 
         <Button
@@ -100,6 +106,7 @@
             android:onClick="testSupervisorScope"
             android:text="SupervisorScope"
             android:textAllCaps="false"
+            android:backgroundTint="@color/orange"
             android:textColor="@android:color/white" />
 
 

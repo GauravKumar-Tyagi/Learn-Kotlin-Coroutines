@@ -12,6 +12,9 @@ import com.gaurav.learn.kotlin.coroutines.ui.retrofit.single.SingleNetworkCallAc
 import com.gaurav.learn.kotlin.coroutines.ui.retrofit.series.SeriesNetworkCallsActivity
 import com.gaurav.learn.kotlin.coroutines.ui.room.RoomDBActivity
 import com.gaurav.learn.kotlin.coroutines.ui.basic.BasicActivityWithMoreExamples
+import com.gaurav.learn.kotlin.coroutines.ui.errorhandling.exceptionhandler.ExceptionHandlerActivity
+import com.gaurav.learn.kotlin.coroutines.ui.errorhandling.supervisorscope.IgnoreErrorAndContinueActivity
+import com.gaurav.learn.kotlin.coroutines.ui.timeout.TimeoutActivity
 
 
 class MainActivity : AppCompatActivity() {
@@ -38,27 +41,15 @@ class MainActivity : AppCompatActivity() {
     }
 
     fun startTimeoutActivity(view: View) {
-        //startActivity(Intent(this@MainActivity, TimeoutActivity::class.java))
-    }
-
-    fun startTryCatchActivity(view: View) {
-        //startActivity(Intent(this@MainActivity, TryCatchActivity::class.java))
+        startActivity(Intent(this@MainActivity, TimeoutActivity::class.java))
     }
 
     fun startExceptionHandlerActivity(view: View) {
-        //startActivity(Intent(this@MainActivity, ExceptionHandlerActivity::class.java))
+        startActivity(Intent(this@MainActivity, ExceptionHandlerActivity::class.java))
     }
 
     fun startIgnoreErrorAndContinueActivity(view: View) {
-        //startActivity(Intent(this@MainActivity, IgnoreErrorAndContinueActivity::class.java))
-    }
-
-    fun startLongRunningTaskActivity(view: View) {
-        //startActivity(Intent(this@MainActivity, LongRunningTaskActivity::class.java))
-    }
-
-    fun startTwoLongRunningTasksActivity(view: View) {
-        //startActivity(Intent(this@MainActivity, TwoLongRunningTasksActivity::class.java))
+        startActivity(Intent(this@MainActivity, IgnoreErrorAndContinueActivity::class.java))
     }
 
     fun startBasicActivity(view: View) {

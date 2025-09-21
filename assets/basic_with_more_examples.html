@@ -82,6 +82,117 @@
 
 </p>
 
+<h3>4. When you click on "testJob" or "testSupervisorJob"</h3>
+
+<p>
+
+    Output: <br><br>
+
+    <b style="color:blue;">A. use Job (testJob) + try catch for child2   [OR   use SupervisorJob (testSupervisorJob) + try catch for child2 ] </b><br>
+    <b style="color:blue;"> OR </b> <br>
+    <b style="color:blue;">Just call testJobWithTryCatch for JOB  and call testSupervisorJobWithTryCatch for SupervisorJob </b><br><br>
+
+    parentJob started... <br>
+    Task 1 started <br>
+    Task 1 is working... 1 <br>
+    Task 2 started <br>
+    Task 3 started <br>
+    Task 3 is working... 1 <br>
+    ParentJob Task Running <br>
+    Task 1 is working... 2 <br>
+    Task 3 is working... 2 <br>
+    Task 2 failed with exception: Simulated error in Task 2 <br>
+    Task 1 is working... 3 <br>
+    Task 3 is working... 3 <br>
+    Task 1 is working... 4 <br>
+    Task 1 is working... 5 <br>
+    Task 3 is working... 4 <br>
+    Task 1 completed <br>
+    Task 3 is working... 5 <br>
+    ParentJob Task Completed <br>
+    Task 3 completed <br><br>
+
+
+    <b style="color:blue;">2nd  Click -> Same as above</b><br><br>
+
+
+    <b style="color:blue;">B. use Job (testJob) + CoroutineExceptionHandler (innerExceptionHandler) for child2 </b><br><br>
+
+    parentJob started... <br>
+    Task 1 started <br>
+    Task 1 is working... 1 <br>
+    Task 2 started <br>
+    Task 3 started <br>
+    Task 3 is working... 1 <br>
+    ParentJob Task Running <br>
+    Task 1 is working... 2 <br>
+    Task 3 is working... 2 <br>
+    Task 1 is working... 3 <br>
+    Internal exception handler: java.lang.Exception: Simulated error in Task 2  on thread: DefaultDispatcher-worker-3 <br>
+    Task 3 is working... 3 <br>
+    Task 3 is working... 4 <br>
+    Task 3 is working... 5 <br>
+    ParentJob Task Completed <br>
+    Task 3 completed <br><br>
+
+    <b style="color:blue;">2nd  Click onwards -> </b><br><br>
+
+    parentJob started... <br>
+    Task 3 started <br>
+    Task 3 is working... 1 <br>
+    ParentJob Task Running <br>
+    Task 3 is working... 2 <br>
+    Task 3 is working... 3 <br>
+    Task 3 is working... 4 <br>
+    Task 3 is working... 5 <br>
+    ParentJob Task Completed <br>
+    Task 3 completed
+
+
+    <br><br>
+
+    <b style="color:blue;">C. use SupervisorJob (testSupervisorJob) + CoroutineExceptionHandler (innerExceptionHandler) for child2 </b><br><br>
+
+
+    parentJob started... <br>
+    Task 1 started <br>
+    Task 1 is working... 1 <br>
+    Task 2 started <br>
+    Task 3 started <br>
+    Task 3 is working... 1 <br>
+    ParentJob Task Running <br>
+    Task 1 is working... 2 <br>
+    Task 3 is working... 2 <br>
+    Task 1 is working... 3 <br>
+    Internal exception handler: java.lang.Exception: Simulated error in Task 2  on thread: DefaultDispatcher-worker-1 <br>
+    Task 3 is working... 3 <br>
+    Task 1 is working... 4 <br>
+    Task 1 is working... 5 <br>
+    Task 3 is working... 4 <br>
+    Task 1 completed <br>
+    Task 3 is working... 5 <br>
+    ParentJob Task Completed <br>
+    Task 3 completed <br> <br>
+
+    <b style="color:blue;">2nd  Click -> Same as above</b><br><br>
+
+    * ** NOTE:-><br><br>
+
+    1. <b style="color:blue;"> <br>
+    Use SupervisorJob when you don't want an exception from a child to cancel the parent or the other children, <br>
+    because if a parent fails, then all its children are cancelled. <br><br>
+
+    Supervisor Scope is only used as a parent to run children coroutines,
+    and so you can use it as a builder to wrap children coroutines to avoid cancellation of <br>
+    children coroutines if one child is cancelled due to an exception thrown. <br>
+
+
+    </b>  <br>
+
+
+    <br><br>
+
+</p>
 
 
 
