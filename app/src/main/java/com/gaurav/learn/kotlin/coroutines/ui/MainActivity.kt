@@ -14,6 +14,8 @@ import com.gaurav.learn.kotlin.coroutines.ui.room.RoomDBActivity
 import com.gaurav.learn.kotlin.coroutines.ui.basic.BasicActivityWithMoreExamples
 import com.gaurav.learn.kotlin.coroutines.ui.errorhandling.exceptionhandler.ExceptionHandlerActivity
 import com.gaurav.learn.kotlin.coroutines.ui.errorhandling.supervisorscope.IgnoreErrorAndContinueActivity
+import com.gaurav.learn.kotlin.coroutines.ui.suspendCancellableCoroutine.SuspendCancellableCoroutineActivity
+import com.gaurav.learn.kotlin.coroutines.ui.suspendCoroutine.SuspendCoroutineActivity
 import com.gaurav.learn.kotlin.coroutines.ui.timeout.TimeoutActivity
 
 
@@ -62,6 +64,14 @@ class MainActivity : AppCompatActivity() {
 
     fun startBasicActivityWithMoreExamples(view: View) {
         startActivity(Intent(this@MainActivity, BasicActivityWithMoreExamples::class.java))
+    }
+
+    fun startSuspendCoroutineActivity(view: View) {
+        startActivity(Intent(this@MainActivity, SuspendCoroutineActivity::class.java))
+    }
+
+    fun startSuspendCancellableCoroutineActivity(view: View) {
+        startActivity(Intent(this@MainActivity, SuspendCancellableCoroutineActivity::class.java))
     }
 
 

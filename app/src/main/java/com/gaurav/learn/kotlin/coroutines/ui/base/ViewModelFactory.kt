@@ -10,6 +10,8 @@ import com.gaurav.learn.kotlin.coroutines.ui.retrofit.parallel.ParallelNetworkCa
 import com.gaurav.learn.kotlin.coroutines.ui.retrofit.series.SeriesNetworkCallsViewModel
 import com.gaurav.learn.kotlin.coroutines.ui.retrofit.single.SingleNetworkCallViewModel
 import com.gaurav.learn.kotlin.coroutines.ui.room.RoomDBViewModel
+import com.gaurav.learn.kotlin.coroutines.ui.suspendCancellableCoroutine.SuspendCancellableCoroutineViewModel
+import com.gaurav.learn.kotlin.coroutines.ui.suspendCoroutine.SuspendCoroutineViewModel
 import com.gaurav.learn.kotlin.coroutines.ui.timeout.TimeoutViewModel
 
 
@@ -35,6 +37,10 @@ class ViewModelFactory(private val apiHelper: ApiHelper, private val dbHelper: D
             return IgnoreErrorAndContinueViewModel(apiHelper, dbHelper) as T
         } else if (modelClass.isAssignableFrom(TimeoutViewModel::class.java)) {
             return TimeoutViewModel(apiHelper, dbHelper) as T
+        } else if (modelClass.isAssignableFrom(SuspendCoroutineViewModel::class.java)) {
+            return SuspendCoroutineViewModel(apiHelper, dbHelper) as T
+        } else if (modelClass.isAssignableFrom(SuspendCancellableCoroutineViewModel::class.java)) {
+            return SuspendCancellableCoroutineViewModel(apiHelper, dbHelper) as T
         }
         throw IllegalArgumentException("Unknown class name")
     }

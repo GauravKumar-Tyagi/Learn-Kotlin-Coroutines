@@ -105,6 +105,30 @@
             android:text="@string/timeout"
             android:layout_marginBottom="16dp"
             android:textColor="@android:color/white" />
+        
+        
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:background="@color/green"
+            />
+
+        <Button
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:onClick="startSuspendCoroutineActivity"
+            android:text="@string/suspendCoroutine"
+            android:layout_marginTop="16dp"
+            android:layout_marginBottom="16dp"
+            android:textColor="@android:color/white" />
+
+        <Button
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:onClick="startSuspendCancellableCoroutineActivity"
+            android:text="@string/suspendCancellableCoroutine"
+            android:layout_marginBottom="16dp"
+            android:textColor="@android:color/white" />
 
 
     </LinearLayout>

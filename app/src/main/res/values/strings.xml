@@ -14,5 +14,11 @@
     <string name="basic">Basic</string>
     <string name="basic_with_exception">Basic with Exception Handling</string>
     <string name="basic_more_examples">Basic - More Examples</string>
+    <string name="suspendCoroutine">suspendCoroutine</string>
+    <string name="suspendCancellableCoroutine">suspendCancellableCoroutine </string>
+    <string name="start_task_1">start task 1</string>
+    <string name="start_task_2">start task 2</string>
+    <string name="end_task_1">end task 1</string>
+    <string name="end_task2">end task2</string>
 
 </resources>
